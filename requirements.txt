@@ -1,0 +1,6 @@
+bcrypt
+cryptography
+numpy
+opencv-python
+mediapipe
+face-recognition
