@@ -1,55 +1,70 @@
-# Biometric Multifactor Authentication - V2
+# 🔐 Biometric Multifactor Authentication - V2
 
-## Authentication factors
-1. Username + password (bcrypt)
-2. Face recognition with repeated matches
-3. Basic blink liveness check
-4. Per-user secret hand gesture (MediaPipe)
+A secure desktop-based **Multifactor Authentication (MFA)** system using password authentication, face recognition, blink-based liveness detection, and a user-specific secret hand gesture.
 
-## Security features
+The project also provides a secure biometric file vault, OTP-based password reset, authentication logging, intruder detection, and administrator controls.
+
+---
+
+## ✨ Features
+
+### Authentication Factors
+
+1. Username + Password using bcrypt
+2. Face Recognition with repeated matches
+3. Basic Blink Liveness Detection
+4. Per-user Secret Hand Gesture using MediaPipe
+
+All authentication factors must be successfully verified before access is granted.
+
+---
+
+## 🛡️ Security Features
+
 - SQLite database with automatic migration from the original project schema
-- 3 failed-password attempts -> 5-minute temporary lock
+- bcrypt password hashing
+- 3 failed-password attempts → 5-minute temporary lock
 - Structured authentication audit logs
 - Intruder snapshots for repeated unknown faces
-- OTP password reset with 5-minute expiry and 3 attempts
-- Fernet encrypted personal file vault
+- OTP password reset with 5-minute expiry
+- Maximum 3 OTP verification attempts
+- Fernet-encrypted personal file vault
 - Safer temporary-file opening and cleanup
-- Admin user management and security-log viewer
+- Admin user management
+- Security-log viewer
 
-## Important project data
-Keep these folders/files from your existing project when upgrading:
-- `dataset/`
-- `models/`
-- `intruders/`
-- `secure_files/`
-- `secure_storage/`
-- `users.db`
-- `venv/` (do not copy/share it; recreate if necessary)
+---
 
-The Python source files in this V2 package can replace the matching source files in the existing project.
+## 🏗️ Project Structure
 
-## Install
-```bash
-pip install -r requirements.txt
-```
-
-## Run
-```bash
-python gui_login.py
-```
-
-## First setup for a new user
-Run the admin panel, authenticate as admin, then use **Add User + Register Biometrics**. The process registers the face, trains the face model, and registers the user's secret gesture.
-
-## Face model
-If you already have a working `models/faces.pkl`, it can be retained. If you change face datasets, run:
-```bash
-python train_faces.py
-```
-
-## Demo OTP
-The OTP is intentionally a local demo. It is printed to the terminal. A production system should deliver OTP through a verified email/SMS provider.
-
-## Notes
-- The blink check is a basic liveness demonstration, not a high-assurance anti-spoofing system.
-- The per-user Fernet key is stored in that user's vault folder for this academic project. Production systems should use a dedicated key-management system.
+```text
+Biometric-MFA-V2/
+│
+├── screenshots/
+│   ├── 01_login_screen.png
+│   ├── 02_face_verification.png
+│   ├── 03_gesture_verification.png
+│   ├── 04_successful_authentication.png
+│   ├── 05_secure_biometric_vault.png
+│   ├── 06_gesture_failed.png
+│   └── 07_face_failed.png
+│
+├── admin_panel.py
+├── app.py
+├── dashboard.py
+├── database.py
+├── face_auth.py
+├── gesture_detection.py
+├── gesture_register.py
+├── gui_login.py
+├── password_reset.py
+├── register_face.py
+├── reset_user.py
+├── run.py
+├── test_camera.py
+├── train_faces.py
+│
+├── haarcascade_frontalface_default.xml
+├── requirements.txt
+├── .gitignore
+└── README.md
